@@ -1,0 +1,1624 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mirza Ping - تست سرعت اینترنت</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+
+      :root {
+        --bg-primary: #0a0a1a;
+        --bg-secondary: #12122a;
+        --bg-card: rgba(20, 20, 50, 0.6);
+        --accent-blue: #4f6ef7;
+        --accent-purple: #8b5cf6;
+        --accent-cyan: #06b6d4;
+        --accent-pink: #ec4899;
+        --accent-green: #10b981;
+        --accent-orange: #f59e0b;
+        --text-primary: #f0f0ff;
+        --text-secondary: #a0a0c0;
+        --text-muted: #6060a0;
+        --glass-bg: rgba(15, 15, 40, 0.65);
+        --glass-border: rgba(100, 100, 200, 0.15);
+        --blur-amount: 20px;
+        --gradient-1: linear-gradient(135deg, #4f6ef7, #8b5cf6);
+        --gradient-2: linear-gradient(135deg, #06b6d4, #4f6ef7);
+        --gradient-3: linear-gradient(135deg, #8b5cf6, #ec4899);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Vazirmatn", sans-serif;
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        min-height: 100vh;
+        overflow-x: hidden;
+        position: relative;
+      }
+
+      body.en {
+        font-family: "Inter", sans-serif;
+        direction: ltr;
+      }
+
+      /* Animated Background */
+      .bg-animation {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        overflow: hidden;
+      }
+
+      .bg-orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(80px);
+        opacity: 0.3;
+        animation: orbFloat 20s ease-in-out infinite;
+      }
+
+      .bg-orb:nth-child(1) {
+        width: 600px;
+        height: 600px;
+        background: var(--accent-purple);
+        top: -200px;
+        right: -100px;
+        animation-delay: 0s;
+      }
+
+      .bg-orb:nth-child(2) {
+        width: 500px;
+        height: 500px;
+        background: var(--accent-blue);
+        bottom: -150px;
+        left: -100px;
+        animation-delay: -7s;
+      }
+
+      .bg-orb:nth-child(3) {
+        width: 400px;
+        height: 400px;
+        background: var(--accent-cyan);
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation-delay: -14s;
+      }
+
+      .bg-orb:nth-child(4) {
+        width: 300px;
+        height: 300px;
+        background: var(--accent-pink);
+        top: 20%;
+        left: 10%;
+        animation-delay: -3s;
+        opacity: 0.15;
+      }
+
+      @keyframes orbFloat {
+        0%,
+        100% {
+          transform: translate(0, 0) scale(1);
+        }
+        25% {
+          transform: translate(50px, -80px) scale(1.1);
+        }
+        50% {
+          transform: translate(-30px, 60px) scale(0.9);
+        }
+        75% {
+          transform: translate(70px, 30px) scale(1.05);
+        }
+      }
+
+      .bg-grid {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        background-image:
+          linear-gradient(rgba(100, 100, 200, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(100, 100, 200, 0.03) 1px, transparent 1px);
+        background-size: 60px 60px;
+      }
+
+      .container {
+        position: relative;
+        z-index: 1;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 20px;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Header */
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 30px;
+        background: var(--glass-bg);
+        backdrop-filter: blur(var(--blur-amount));
+        -webkit-backdrop-filter: blur(var(--blur-amount));
+        border: 1px solid var(--glass-border);
+        border-radius: 20px;
+        margin-bottom: 30px;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .logo-icon {
+        width: 48px;
+        height: 48px;
+        background: var(--gradient-1);
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        box-shadow: 0 4px 20px rgba(79, 110, 247, 0.4);
+      }
+
+      .logo-text {
+        font-size: 24px;
+        font-weight: 800;
+        background: var(--gradient-1);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .ip-badge {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 18px;
+        background: rgba(16, 185, 129, 0.1);
+        border: 1px solid rgba(16, 185, 129, 0.25);
+        border-radius: 12px;
+        font-size: 13px;
+        color: var(--accent-green);
+        font-weight: 600;
+        direction: ltr;
+      }
+
+      .ip-badge-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--accent-green);
+        box-shadow: 0 0 8px var(--accent-green);
+        animation: pulseDot 1.5s ease-in-out infinite;
+      }
+
+      .lang-toggle {
+        background: rgba(79, 110, 247, 0.15);
+        border: 1px solid rgba(79, 110, 247, 0.3);
+        color: var(--accent-blue);
+        padding: 10px 20px;
+        border-radius: 12px;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .lang-toggle:hover {
+        background: rgba(79, 110, 247, 0.25);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(79, 110, 247, 0.2);
+      }
+
+      .speed-section {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+      }
+
+      /* Gauge */
+      .gauge-container {
+        background: var(--glass-bg);
+        backdrop-filter: blur(var(--blur-amount));
+        -webkit-backdrop-filter: blur(var(--blur-amount));
+        border: 1px solid var(--glass-border);
+        border-radius: 24px;
+        padding: 40px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .gauge-container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80%;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--accent-blue),
+          var(--accent-purple),
+          transparent
+        );
+      }
+
+      .gauge-wrapper {
+        position: relative;
+        width: 280px;
+        height: 160px;
+        margin: 0 auto 20px;
+      }
+
+      .gauge-svg {
+        width: 100%;
+        height: 100%;
+      }
+
+      .gauge-bg {
+        fill: none;
+        stroke: rgba(79, 110, 247, 0.1);
+        stroke-width: 18;
+        stroke-linecap: round;
+      }
+
+      .gauge-fill {
+        fill: none;
+        stroke: url(#gaugeGradient);
+        stroke-width: 18;
+        stroke-linecap: round;
+        stroke-dasharray: 283;
+        stroke-dashoffset: 283;
+        transition: stroke-dashoffset 0.5s ease;
+        filter: drop-shadow(0 0 10px rgba(79, 110, 247, 0.5));
+      }
+
+      .gauge-ticks {
+        fill: none;
+        stroke: rgba(160, 160, 192, 0.15);
+        stroke-width: 1;
+      }
+
+      .gauge-value {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+      }
+
+      .gauge-number {
+        font-size: 56px;
+        font-weight: 900;
+        background: var(--gradient-1);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        line-height: 1;
+      }
+
+      .gauge-unit {
+        font-size: 16px;
+        color: var(--text-secondary);
+        font-weight: 500;
+      }
+
+      .test-status {
+        font-size: 18px;
+        color: var(--text-secondary);
+        margin-bottom: 10px;
+        font-weight: 500;
+        min-height: 28px;
+      }
+
+      .test-phase {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 16px;
+        background: rgba(79, 110, 247, 0.1);
+        border-radius: 20px;
+        font-size: 13px;
+        color: var(--accent-blue);
+        margin-bottom: 15px;
+      }
+
+      .phase-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--accent-blue);
+        animation: pulseDot 1s ease-in-out infinite;
+      }
+
+      @keyframes pulseDot {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.4;
+          transform: scale(0.7);
+        }
+      }
+
+      /* Start Button */
+      .start-btn {
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        border: 3px solid rgba(79, 110, 247, 0.3);
+        background: radial-gradient(
+          circle at center,
+          rgba(79, 110, 247, 0.15),
+          transparent
+        );
+        color: var(--text-primary);
+        font-family: inherit;
+        font-size: 20px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.4s ease;
+        position: relative;
+        margin: 10px auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 8px;
+        z-index: 1;
+      }
+
+      .start-btn::before {
+        content: "";
+        position: absolute;
+        inset: -4px;
+        border-radius: 50%;
+        background: conic-gradient(
+          from 0deg,
+          var(--accent-blue),
+          var(--accent-purple),
+          var(--accent-cyan),
+          var(--accent-blue)
+        );
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+      }
+
+      .start-btn:hover::before {
+        opacity: 0.5;
+      }
+
+      .start-btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 60px rgba(79, 110, 247, 0.3);
+      }
+
+      .start-btn.testing {
+        pointer-events: none;
+      }
+
+      .start-btn.testing::before {
+        opacity: 0.7;
+        animation: spinBorder 2s linear infinite;
+      }
+
+      @keyframes spinBorder {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .start-btn-icon {
+        font-size: 36px;
+      }
+
+      /* Progress Bar */
+      .progress-bar {
+        width: 100%;
+        height: 4px;
+        background: rgba(79, 110, 247, 0.1);
+        border-radius: 4px;
+        margin-top: 15px;
+        overflow: hidden;
+        display: none;
+      }
+
+      .progress-bar.active {
+        display: block;
+      }
+
+      .progress-fill {
+        height: 100%;
+        border-radius: 4px;
+        background: var(--gradient-1);
+        width: 0%;
+        transition: width 0.3s ease;
+      }
+
+      /* Results Grid */
+      .results-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+      }
+
+      .result-card {
+        background: var(--glass-bg);
+        backdrop-filter: blur(var(--blur-amount));
+        -webkit-backdrop-filter: blur(var(--blur-amount));
+        border: 1px solid var(--glass-border);
+        border-radius: 18px;
+        padding: 24px 20px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        opacity: 0;
+        animation: fadeIn 0.5s ease forwards;
+      }
+
+      .result-card:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      .result-card:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .result-card:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      .result-card:nth-child(4) {
+        animation-delay: 0.4s;
+      }
+
+      .result-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(100, 100, 200, 0.3);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      .result-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        border-radius: 3px 3px 0 0;
+      }
+
+      .result-card.download::before {
+        background: var(--gradient-2);
+      }
+      .result-card.upload::before {
+        background: var(--gradient-3);
+      }
+      .result-card.ping::before {
+        background: linear-gradient(
+          135deg,
+          var(--accent-green),
+          var(--accent-cyan)
+        );
+      }
+      .result-card.jitter::before {
+        background: linear-gradient(
+          135deg,
+          var(--accent-orange),
+          var(--accent-pink)
+        );
+      }
+
+      .result-icon {
+        font-size: 28px;
+        margin-bottom: 10px;
+      }
+
+      .result-label {
+        font-size: 13px;
+        color: var(--text-muted);
+        font-weight: 500;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .result-value {
+        font-size: 32px;
+        font-weight: 800;
+        line-height: 1;
+        margin-bottom: 4px;
+      }
+
+      .result-card.download .result-value {
+        color: var(--accent-cyan);
+      }
+      .result-card.upload .result-value {
+        color: var(--accent-purple);
+      }
+      .result-card.ping .result-value {
+        color: var(--accent-green);
+      }
+      .result-card.jitter .result-value {
+        color: var(--accent-orange);
+      }
+
+      .result-unit {
+        font-size: 13px;
+        color: var(--text-secondary);
+        font-weight: 400;
+      }
+
+      /* Chart */
+      .chart-section {
+        background: var(--glass-bg);
+        backdrop-filter: blur(var(--blur-amount));
+        -webkit-backdrop-filter: blur(var(--blur-amount));
+        border: 1px solid var(--glass-border);
+        border-radius: 24px;
+        padding: 30px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .chart-section::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60%;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--accent-purple),
+          transparent
+        );
+      }
+
+      .chart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .chart-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--text-primary);
+      }
+
+      .chart-legend {
+        display: flex;
+        gap: 20px;
+      }
+
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+        color: var(--text-secondary);
+      }
+
+      .legend-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+      }
+
+      .legend-dot.dl {
+        background: var(--accent-cyan);
+      }
+      .legend-dot.ul {
+        background: var(--accent-purple);
+      }
+      .legend-dot.pg {
+        background: var(--accent-green);
+      }
+
+      .chart-canvas-wrapper {
+        position: relative;
+        width: 100%;
+        height: 220px;
+      }
+
+      canvas#speedChart {
+        width: 100% !important;
+        height: 100% !important;
+      }
+
+      /* Server Info */
+      .server-info {
+        background: var(--glass-bg);
+        backdrop-filter: blur(var(--blur-amount));
+        -webkit-backdrop-filter: blur(var(--blur-amount));
+        border: 1px solid var(--glass-border);
+        border-radius: 18px;
+        padding: 20px 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+        flex-wrap: wrap;
+      }
+
+      .server-detail {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .server-detail-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        background: rgba(79, 110, 247, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+      }
+
+      .server-detail-text {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .server-detail-label {
+        font-size: 11px;
+        color: var(--text-muted);
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .server-detail-value {
+        font-size: 14px;
+        color: var(--text-primary);
+        font-weight: 600;
+      }
+
+      /* Footer */
+      .footer {
+        text-align: center;
+        padding: 20px;
+        color: var(--text-muted);
+        font-size: 13px;
+        margin-top: 10px;
+      }
+
+      /* Particles */
+      .particle {
+        position: fixed;
+        width: 2px;
+        height: 2px;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 0;
+        opacity: 0.3;
+        animation: particleFloat 15s linear infinite;
+      }
+
+      @keyframes particleFloat {
+        0% {
+          transform: translateY(100vh) rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 0.3;
+        }
+        90% {
+          opacity: 0.3;
+        }
+        100% {
+          transform: translateY(-100vh) rotate(720deg);
+          opacity: 0;
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .fade-in {
+        animation: fadeIn 0.6s ease forwards;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .container {
+          padding: 12px;
+        }
+        .header {
+          padding: 15px 20px;
+          border-radius: 16px;
+          flex-wrap: wrap;
+          gap: 12px;
+        }
+        .logo-text {
+          font-size: 20px;
+        }
+        .header-right {
+          width: 100%;
+          justify-content: space-between;
+        }
+        .results-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 12px;
+        }
+        .gauge-wrapper {
+          width: 220px;
+          height: 130px;
+        }
+        .gauge-number {
+          font-size: 42px;
+        }
+        .gauge-container {
+          padding: 25px 20px;
+        }
+        .start-btn {
+          width: 150px;
+          height: 150px;
+          font-size: 18px;
+        }
+        .chart-section {
+          padding: 20px 15px;
+        }
+        .server-info {
+          padding: 15px 20px;
+          gap: 20px;
+        }
+        .chart-legend {
+          gap: 12px;
+          flex-wrap: wrap;
+        }
+        .result-value {
+          font-size: 26px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .results-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 10px;
+        }
+        .result-card {
+          padding: 18px 14px;
+        }
+        .chart-header {
+          flex-direction: column;
+          gap: 10px;
+          align-items: flex-start;
+        }
+        .server-info {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 15px;
+        }
+        .ip-badge {
+          font-size: 12px;
+          padding: 8px 14px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Background -->
+    <div class="bg-animation">
+      <div class="bg-orb"></div>
+      <div class="bg-orb"></div>
+      <div class="bg-orb"></div>
+      <div class="bg-orb"></div>
+    </div>
+    <div class="bg-grid"></div>
+
+    <!-- Main -->
+    <div class="container">
+      <!-- Header -->
+      <header class="header fade-in">
+        <div class="logo">
+          <div class="logo-icon">⚡</div>
+          <span class="logo-text">Mirza Ping</span>
+        </div>
+        <div class="header-right">
+          <div class="ip-badge">
+            <div class="ip-badge-dot"></div>
+            <span id="ipDisplay">...</span>
+          </div>
+          <button class="lang-toggle" onclick="toggleLanguage()">
+            <span>🌐</span>
+            <span id="langText">English</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Speed Section -->
+      <div class="speed-section">
+        <!-- Gauge -->
+        <div class="gauge-container fade-in">
+          <div
+            class="test-status"
+            id="testStatus"
+            data-fa="برای شروع تست کلیک کنید"
+            data-en="Click to start the test"
+          >
+            برای شروع تست کلیک کنید
+          </div>
+          <div class="test-phase" id="testPhase" style="display: none">
+            <div class="phase-dot"></div>
+            <span id="phaseText"></span>
+          </div>
+
+          <div class="gauge-wrapper">
+            <svg class="gauge-svg" viewBox="0 0 200 120">
+              <defs>
+                <linearGradient
+                  id="gaugeGradient"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="0%"
+                >
+                  <stop offset="0%" style="stop-color: #06b6d4" />
+                  <stop offset="50%" style="stop-color: #4f6ef7" />
+                  <stop offset="100%" style="stop-color: #8b5cf6" />
+                </linearGradient>
+              </defs>
+              <!-- Tick marks -->
+              <g class="gauge-ticks" opacity="0.2">
+                <line
+                  x1="24"
+                  y1="98"
+                  x2="28"
+                  y2="92"
+                  stroke="#a0a0c0"
+                  stroke-width="1"
+                />
+                <line
+                  x1="38"
+                  y1="68"
+                  x2="43"
+                  y2="66"
+                  stroke="#a0a0c0"
+                  stroke-width="1"
+                />
+                <line
+                  x1="65"
+                  y1="38"
+                  x2="68"
+                  y2="42"
+                  stroke="#a0a0c0"
+                  stroke-width="1"
+                />
+                <line
+                  x1="100"
+                  y1="22"
+                  x2="100"
+                  y2="28"
+                  stroke="#a0a0c0"
+                  stroke-width="1"
+                />
+                <line
+                  x1="135"
+                  y1="38"
+                  x2="132"
+                  y2="42"
+                  stroke="#a0a0c0"
+                  stroke-width="1"
+                />
+                <line
+                  x1="162"
+                  y1="68"
+                  x2="157"
+                  y2="66"
+                  stroke="#a0a0c0"
+                  stroke-width="1"
+                />
+                <line
+                  x1="176"
+                  y1="98"
+                  x2="172"
+                  y2="92"
+                  stroke="#a0a0c0"
+                  stroke-width="1"
+                />
+              </g>
+              <path class="gauge-bg" d="M 20 100 A 80 80 0 0 1 180 100" />
+              <path
+                class="gauge-fill"
+                id="gaugeFill"
+                d="M 20 100 A 80 80 0 0 1 180 100"
+              />
+            </svg>
+            <div class="gauge-value">
+              <div class="gauge-number" id="gaugeNumber">0</div>
+              <div class="gauge-unit" id="gaugeUnit">Mbps</div>
+            </div>
+          </div>
+
+          <button class="start-btn" id="startBtn" onclick="startTest()">
+            <span class="start-btn-icon" id="startBtnIcon">▶</span>
+            <span id="startBtnText" data-fa="شروع تست" data-en="Start Test"
+              >شروع تست</span
+            >
+          </button>
+
+          <div class="progress-bar" id="progressBar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+        </div>
+
+        <!-- Results -->
+        <div class="results-grid">
+          <div class="result-card download">
+            <div class="result-icon">⬇️</div>
+            <div class="result-label" data-fa="دانلود" data-en="Download">
+              دانلود
+            </div>
+            <div class="result-value" id="dlValue">—</div>
+            <div class="result-unit">Mbps</div>
+          </div>
+          <div class="result-card upload">
+            <div class="result-icon">⬆️</div>
+            <div class="result-label" data-fa="آپلود" data-en="Upload">
+              آپلود
+            </div>
+            <div class="result-value" id="ulValue">—</div>
+            <div class="result-unit">Mbps</div>
+          </div>
+          <div class="result-card ping">
+            <div class="result-icon">📡</div>
+            <div class="result-label" data-fa="پینگ" data-en="Ping">پینگ</div>
+            <div class="result-value" id="pgValue">—</div>
+            <div class="result-unit">ms</div>
+          </div>
+          <div class="result-card jitter">
+            <div class="result-icon">📊</div>
+            <div class="result-label" data-fa="جیتر" data-en="Jitter">جیتر</div>
+            <div class="result-value" id="jtValue">—</div>
+            <div class="result-unit">ms</div>
+          </div>
+        </div>
+
+        <!-- Chart -->
+        <div class="chart-section fade-in">
+          <div class="chart-header">
+            <div
+              class="chart-title"
+              data-fa="نمودار تغییرات سرعت"
+              data-en="Speed Variation Chart"
+            >
+              نمودار تغییرات سرعت
+            </div>
+            <div class="chart-legend">
+              <div class="legend-item">
+                <div class="legend-dot dl"></div>
+                <span data-fa="دانلود" data-en="Download">دانلود</span>
+              </div>
+              <div class="legend-item">
+                <div class="legend-dot ul"></div>
+                <span data-fa="آپلود" data-en="Upload">آپلود</span>
+              </div>
+              <div class="legend-item">
+                <div class="legend-dot pg"></div>
+                <span data-fa="پینگ" data-en="Ping">پینگ</span>
+              </div>
+            </div>
+          </div>
+          <div class="chart-canvas-wrapper">
+            <canvas id="speedChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Server Info -->
+        <div class="server-info fade-in">
+          <div class="server-detail">
+            <div class="server-detail-icon">🖥️</div>
+            <div class="server-detail-text">
+              <span
+                class="server-detail-label"
+                data-fa="سرور تست"
+                data-en="Test Server"
+                >سرور تست</span
+              >
+              <span class="server-detail-value" id="srvValue"
+                >Cloudflare Edge</span
+              >
+            </div>
+          </div>
+          <div class="server-detail">
+            <div class="server-detail-icon">🌐</div>
+            <div class="server-detail-text">
+              <span
+                class="server-detail-label"
+                data-fa="آی‌پی شما"
+                data-en="Your IP"
+                >آی‌پی شما</span
+              >
+              <span class="server-detail-value" id="ipValueBottom">—</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <span
+          data-fa="ساخته شده با ❤️ توسط Mirza Ping | تست سرعت با سرورهای Cloudflare"
+          data-en="Made with ❤️ by Mirza Ping | Speed test powered by Cloudflare"
+          >ساخته شده با ❤️ توسط Mirza Ping | تست سرعت با سرورهای
+          Cloudflare</span
+        >
+      </footer>
+    </div>
+
+    <script>
+      // ==================== LANGUAGE ====================
+      let currentLang = "fa";
+
+      function toggleLanguage() {
+        currentLang = currentLang === "fa" ? "en" : "fa";
+        document.getElementById("langText").textContent =
+          currentLang === "fa" ? "English" : "فارسی";
+        document.body.classList.toggle("en", currentLang === "en");
+        document.documentElement.dir = currentLang === "fa" ? "rtl" : "ltr";
+        document.documentElement.lang = currentLang;
+
+        document.querySelectorAll("[data-fa][data-en]").forEach((el) => {
+          el.textContent = el.getAttribute("data-" + currentLang);
+        });
+      }
+
+      // ==================== PARTICLES ====================
+      (function createParticles() {
+        const colors = ["#4f6ef7", "#8b5cf6", "#06b6d4", "#ec4899"];
+        for (let i = 0; i < 18; i++) {
+          const p = document.createElement("div");
+          p.className = "particle";
+          p.style.left = Math.random() * 100 + "%";
+          p.style.animationDelay = Math.random() * 15 + "s";
+          p.style.animationDuration = 10 + Math.random() * 20 + "s";
+          p.style.background =
+            colors[Math.floor(Math.random() * colors.length)];
+          document.body.appendChild(p);
+        }
+      })();
+
+      // ==================== IP DETECTION ====================
+      async function detectIP() {
+        try {
+          const resp = await fetch("https://api.ipify.org?format=json");
+          const data = await resp.json();
+          const ip = data.ip || "—";
+          document.getElementById("ipDisplay").textContent = ip;
+          document.getElementById("ipValueBottom").textContent = ip;
+        } catch (e) {
+          document.getElementById("ipDisplay").textContent = "N/A";
+          document.getElementById("ipValueBottom").textContent = "N/A";
+        }
+      }
+      detectIP();
+
+      // ==================== CLOUDFLARE COLO ====================
+      async function detectColo() {
+        try {
+          const r = await fetch("https://speed.cloudflare.com/meta");
+          const d = await r.json();
+          if (d.colo) {
+            document.getElementById("srvValue").textContent =
+              "Cloudflare — " + d.colo;
+          }
+        } catch (e) {
+          try {
+            const r2 = await fetch("https://1.1.1.1/cdn-cgi/trace");
+            const txt = await r2.text();
+            const m = txt.match(/colo=(\w+)/);
+            if (m)
+              document.getElementById("srvValue").textContent =
+                "Cloudflare — " + m[1];
+          } catch (e2) {}
+        }
+      }
+      detectColo();
+
+      // ==================== CHART ====================
+      const chartCanvas = document.getElementById("speedChart");
+      const ctx = chartCanvas.getContext("2d");
+      let chartData = { download: [], upload: [], ping: [] };
+
+      function resizeChart() {
+        const wrapper = chartCanvas.parentElement;
+        const dpr = window.devicePixelRatio || 1;
+        chartCanvas.width = wrapper.clientWidth * dpr;
+        chartCanvas.height = wrapper.clientHeight * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        drawChart();
+      }
+
+      window.addEventListener("resize", resizeChart);
+
+      function drawSmooth(data, W, H, maxVal, color, fillColors) {
+        if (data.length < 2) return;
+        const stepX = W / Math.max(data.length - 1, 1);
+
+        const points = data.map((v, i) => ({
+          x: i * stepX,
+          y: H - (v / maxVal) * (H - 20),
+        }));
+
+        // Fill area
+        const grad = ctx.createLinearGradient(0, 0, 0, H);
+        grad.addColorStop(0, fillColors[0]);
+        grad.addColorStop(1, fillColors[1]);
+        ctx.beginPath();
+        ctx.moveTo(points[0].x, H);
+        ctx.lineTo(points[0].x, points[0].y);
+        for (let i = 1; i < points.length; i++) {
+          const cpx = (points[i - 1].x + points[i].x) / 2;
+          ctx.bezierCurveTo(
+            cpx,
+            points[i - 1].y,
+            cpx,
+            points[i].y,
+            points[i].x,
+            points[i].y,
+          );
+        }
+        ctx.lineTo(points[points.length - 1].x, H);
+        ctx.closePath();
+        ctx.fillStyle = grad;
+        ctx.fill();
+
+        // Line
+        ctx.beginPath();
+        ctx.moveTo(points[0].x, points[0].y);
+        for (let i = 1; i < points.length; i++) {
+          const cpx = (points[i - 1].x + points[i].x) / 2;
+          ctx.bezierCurveTo(
+            cpx,
+            points[i - 1].y,
+            cpx,
+            points[i].y,
+            points[i].x,
+            points[i].y,
+          );
+        }
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 2.5;
+        ctx.shadowColor = color;
+        ctx.shadowBlur = 8;
+        ctx.stroke();
+        ctx.shadowBlur = 0;
+
+        // Dots
+        const skip = Math.max(1, Math.floor(data.length / 20));
+        points.forEach((pt, i) => {
+          if (i % skip !== 0 && i !== points.length - 1) return;
+          ctx.beginPath();
+          ctx.arc(pt.x, pt.y, 3, 0, Math.PI * 2);
+          ctx.fillStyle = color;
+          ctx.fill();
+        });
+      }
+
+      function drawChart() {
+        const W = chartCanvas.parentElement.clientWidth;
+        const H = chartCanvas.parentElement.clientHeight;
+        ctx.clearRect(0, 0, W * 2, H * 2);
+
+        // Grid
+        ctx.strokeStyle = "rgba(100, 100, 200, 0.06)";
+        ctx.lineWidth = 1;
+        for (let i = 0; i <= 5; i++) {
+          const y = (H / 5) * i;
+          ctx.beginPath();
+          ctx.moveTo(0, y);
+          ctx.lineTo(W, y);
+          ctx.stroke();
+        }
+
+        // Download
+        if (chartData.download.length >= 2) {
+          const max = Math.max(...chartData.download, 1) * 1.3;
+          drawSmooth(chartData.download, W, H, max, "#06b6d4", [
+            "rgba(6,182,212,0.25)",
+            "rgba(6,182,212,0)",
+          ]);
+        }
+
+        // Upload
+        if (chartData.upload.length >= 2) {
+          const max = Math.max(...chartData.upload, 1) * 1.3;
+          drawSmooth(chartData.upload, W, H, max, "#8b5cf6", [
+            "rgba(139,92,246,0.2)",
+            "rgba(139,92,246,0)",
+          ]);
+        }
+
+        // Ping (dashed)
+        if (chartData.ping.length >= 2) {
+          const max = Math.max(...chartData.ping, 1) * 1.5;
+          const stepX = W / Math.max(chartData.ping.length - 1, 1);
+          ctx.beginPath();
+          chartData.ping.forEach((v, i) => {
+            const x = i * stepX;
+            const y = H - (v / max) * (H * 0.4) - 5;
+            if (i === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+          });
+          ctx.strokeStyle = "#10b981";
+          ctx.lineWidth = 1.5;
+          ctx.setLineDash([5, 5]);
+          ctx.stroke();
+          ctx.setLineDash([]);
+        }
+
+        // "No data" message
+        if (
+          chartData.download.length < 2 &&
+          chartData.upload.length < 2 &&
+          chartData.ping.length < 2
+        ) {
+          ctx.fillStyle = "rgba(160, 160, 192, 0.2)";
+          ctx.font = "500 15px Vazirmatn, Inter, sans-serif";
+          ctx.textAlign = "center";
+          const msg =
+            currentLang === "fa"
+              ? "بعد از شروع تست، نمودار نمایش داده می‌شود"
+              : "Chart will appear after starting the test";
+          ctx.fillText(msg, W / 2, H / 2);
+        }
+      }
+
+      setTimeout(resizeChart, 150);
+
+      // ==================== GAUGE ====================
+      function setGauge(value, maxVal) {
+        const fill = document.getElementById("gaugeFill");
+        const totalLen = 283;
+        const pct = Math.min(value / maxVal, 1);
+        fill.style.strokeDashoffset = totalLen - pct * totalLen;
+      }
+
+      let gaugeAnimInterval = null;
+      function animateGaugeNumber(target) {
+        if (gaugeAnimInterval) clearInterval(gaugeAnimInterval);
+        const el = document.getElementById("gaugeNumber");
+        const current = parseFloat(el.textContent) || 0;
+        const diff = target - current;
+        const steps = 15;
+        let step = 0;
+        gaugeAnimInterval = setInterval(() => {
+          step++;
+          const val = current + diff * (step / steps);
+          el.textContent = val < 10 ? val.toFixed(2) : val.toFixed(1);
+          if (step >= steps) {
+            clearInterval(gaugeAnimInterval);
+            gaugeAnimInterval = null;
+          }
+        }, 25);
+      }
+
+      // ==================== SPEED TEST ENGINE ====================
+      const CF_DOWN = "https://speed.cloudflare.com/__down?bytes=";
+      const CF_UP = "https://speed.cloudflare.com/__up";
+      const CF_PING = "https://speed.cloudflare.com/__down?bytes=0";
+
+      let isTesting = false;
+
+      function sleep(ms) {
+        return new Promise((r) => setTimeout(r, ms));
+      }
+
+      async function measurePing() {
+        const start = performance.now();
+        try {
+          await fetch(CF_PING + "&r=" + Math.random(), {
+            cache: "no-store",
+            mode: "cors",
+          });
+          return performance.now() - start;
+        } catch (e) {
+          return -1;
+        }
+      }
+
+      async function runPingTest(durationSec) {
+        const phaseEl = document.getElementById("testPhase");
+        const phaseText = document.getElementById("phaseText");
+        const statusEl = document.getElementById("testStatus");
+        const progressBar = document.getElementById("progressBar");
+        const progressFill = document.getElementById("progressFill");
+
+        phaseEl.style.display = "inline-flex";
+        phaseText.textContent =
+          currentLang === "fa" ? "🏓 تست پینگ..." : "🏓 Testing Ping...";
+        statusEl.textContent =
+          currentLang === "fa"
+            ? "اندازه‌گیری پینگ و جیتر"
+            : "Measuring Ping & Jitter";
+        progressBar.classList.add("active");
+        document.getElementById("gaugeUnit").textContent = "ms";
+
+        const pings = [];
+        const start = performance.now();
+        const end = start + durationSec * 1000;
+
+        while (performance.now() < end && isTesting) {
+          const p = await measurePing();
+          if (p > 0) {
+            pings.push(p);
+            chartData.ping.push(parseFloat(p.toFixed(1)));
+
+            const avg = pings.reduce((a, b) => a + b, 0) / pings.length;
+            document.getElementById("pgValue").textContent = avg.toFixed(1);
+            animateGaugeNumber(avg);
+            setGauge(avg, 200);
+
+            if (pings.length > 1) {
+              let jSum = 0;
+              for (let i = 1; i < pings.length; i++)
+                jSum += Math.abs(pings[i] - pings[i - 1]);
+              document.getElementById("jtValue").textContent = (
+                jSum /
+                (pings.length - 1)
+              ).toFixed(1);
+            }
+
+            progressFill.style.width =
+              Math.min(
+                ((performance.now() - start) / (durationSec * 1000)) * 100,
+                100,
+              ) + "%";
+            drawChart();
+          }
+          await sleep(150);
+        }
+
+        progressBar.classList.remove("active");
+        progressFill.style.width = "0%";
+        return pings;
+      }
+
+      async function runDownloadTest(durationSec) {
+        const phaseText = document.getElementById("phaseText");
+        const statusEl = document.getElementById("testStatus");
+        const progressBar = document.getElementById("progressBar");
+        const progressFill = document.getElementById("progressFill");
+
+        phaseText.textContent =
+          currentLang === "fa" ? "⬇️ تست دانلود..." : "⬇️ Testing Download...";
+        statusEl.textContent =
+          currentLang === "fa"
+            ? "اندازه‌گیری سرعت دانلود"
+            : "Measuring Download Speed";
+        progressBar.classList.add("active");
+        document.getElementById("gaugeUnit").textContent = "Mbps";
+
+        const speeds = [];
+        const start = performance.now();
+        const end = start + durationSec * 1000;
+        const chunks = [
+          100000, 500000, 1000000, 2000000, 5000000, 10000000, 25000000,
+        ];
+        let ci = 0;
+
+        while (performance.now() < end && isTesting) {
+          const size = chunks[Math.min(ci, chunks.length - 1)];
+          const t0 = performance.now();
+          try {
+            const resp = await fetch(CF_DOWN + size + "&r=" + Math.random(), {
+              cache: "no-store",
+              mode: "cors",
+            });
+            const blob = await resp.blob();
+            const dur = (performance.now() - t0) / 1000;
+            const mbps = (blob.size * 8) / dur / 1e6;
+
+            speeds.push(mbps);
+            chartData.download.push(parseFloat(mbps.toFixed(2)));
+
+            let ws = 0,
+              wt = 0;
+            speeds.forEach((s, i) => {
+              const w = i + 1;
+              ws += s * w;
+              wt += w;
+            });
+            const avg = ws / wt;
+
+            document.getElementById("dlValue").textContent = avg.toFixed(2);
+            animateGaugeNumber(avg);
+            setGauge(avg, Math.max(avg * 1.5, 100));
+            progressFill.style.width =
+              Math.min(
+                ((performance.now() - start) / (durationSec * 1000)) * 100,
+                100,
+              ) + "%";
+            drawChart();
+
+            if (dur < 1) ci++;
+          } catch (e) {
+            await sleep(300);
+          }
+        }
+
+        progressBar.classList.remove("active");
+        progressFill.style.width = "0%";
+        return speeds;
+      }
+
+      async function runUploadTest(durationSec) {
+        const phaseText = document.getElementById("phaseText");
+        const statusEl = document.getElementById("testStatus");
+        const progressBar = document.getElementById("progressBar");
+        const progressFill = document.getElementById("progressFill");
+
+        phaseText.textContent =
+          currentLang === "fa" ? "⬆️ تست آپلود..." : "⬆️ Testing Upload...";
+        statusEl.textContent =
+          currentLang === "fa"
+            ? "اندازه‌گیری سرعت آپلود"
+            : "Measuring Upload Speed";
+        progressBar.classList.add("active");
+
+        const speeds = [];
+        const start = performance.now();
+        const end = start + durationSec * 1000;
+        const chunks = [100000, 500000, 1000000, 2000000, 5000000, 10000000];
+        let ci = 0;
+
+        while (performance.now() < end && isTesting) {
+          const size = chunks[Math.min(ci, chunks.length - 1)];
+          const payload = new Uint8Array(size);
+          const t0 = performance.now();
+          try {
+            await fetch(CF_UP, {
+              method: "POST",
+              body: payload.buffer,
+              cache: "no-store",
+              mode: "cors",
+            });
+            const dur = (performance.now() - t0) / 1000;
+            const mbps = (size * 8) / dur / 1e6;
+
+            speeds.push(mbps);
+            chartData.upload.push(parseFloat(mbps.toFixed(2)));
+
+            let ws = 0,
+              wt = 0;
+            speeds.forEach((s, i) => {
+              const w = i + 1;
+              ws += s * w;
+              wt += w;
+            });
+            const avg = ws / wt;
+
+            document.getElementById("ulValue").textContent = avg.toFixed(2);
+            animateGaugeNumber(avg);
+            setGauge(avg, Math.max(avg * 1.5, 100));
+            progressFill.style.width =
+              Math.min(
+                ((performance.now() - start) / (durationSec * 1000)) * 100,
+                100,
+              ) + "%";
+            drawChart();
+
+            if (dur < 1) ci++;
+          } catch (e) {
+            await sleep(300);
+          }
+        }
+
+        progressBar.classList.remove("active");
+        progressFill.style.width = "0%";
+        return speeds;
+      }
+
+      async function startTest() {
+        if (isTesting) return;
+        isTesting = true;
+
+        const btn = document.getElementById("startBtn");
+        btn.classList.add("testing");
+        document.getElementById("startBtnText").textContent =
+          currentLang === "fa" ? "در حال تست..." : "Testing...";
+        document.getElementById("startBtnIcon").textContent = "⏳";
+
+        // Reset
+        chartData = { download: [], upload: [], ping: [] };
+        ["dlValue", "ulValue", "pgValue", "jtValue"].forEach(
+          (id) => (document.getElementById(id).textContent = "—"),
+        );
+        document.getElementById("gaugeNumber").textContent = "0";
+        setGauge(0, 100);
+        drawChart();
+
+        try {
+          // Phase 1: Ping — 3 seconds
+          await runPingTest(3);
+          if (!isTesting) return resetBtn();
+
+          // Phase 2: Download — 10 seconds
+          await runDownloadTest(10);
+          if (!isTesting) return resetBtn();
+
+          // Phase 3: Upload — 10 seconds
+          await runUploadTest(10);
+        } catch (err) {
+          console.error("Test error:", err);
+        }
+
+        // Done
+        isTesting = false;
+        document.getElementById("testPhase").style.display = "none";
+        document.getElementById("testStatus").textContent =
+          currentLang === "fa" ? "✅ تست کامل شد!" : "✅ Test Complete!";
+
+        const dlVal = parseFloat(
+          document.getElementById("dlValue").textContent,
+        );
+        if (!isNaN(dlVal)) {
+          animateGaugeNumber(dlVal);
+          setGauge(dlVal, Math.max(dlVal * 1.5, 100));
+          document.getElementById("gaugeUnit").textContent = "Mbps";
+        }
+
+        resetBtn();
+        drawChart();
+      }
+
+      function resetBtn() {
+        const btn = document.getElementById("startBtn");
+        btn.classList.remove("testing");
+        document.getElementById("startBtnText").textContent =
+          currentLang === "fa" ? "تست مجدد" : "Test Again";
+        document.getElementById("startBtnIcon").textContent = "🔄";
+        isTesting = false;
+      }
+    </script>
+  </body>
+</html>
